@@ -26,7 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
         confia_em_promocoesOK: false,
         ignora_alertasOK: false,
         acessa_sites_insegurosOK: false,
-        baixa_arquivos_desconhecidos: false
+        baixa_arquivos_desconhecidos: false,
+        usa_biometriaOK: false,
+        compartilha_localizacaoOK: false,
+        conecta_dispositivos_iotOK: false,
+        usa_gerenciador_senhasOK: false,
+        faz_compras_sites_suspeitosOK: false,
+        conhece_engenharia_socialOK: false
     };
 
     const questions = [
@@ -49,11 +55,17 @@ document.addEventListener('DOMContentLoaded', function () {
         { question: "Você ignora alertas de segurança da sua conta?", fact: "ignora_alertas" },
         { question: "Você acessa sites inseguros?", fact: "acessa_sites_inseguros" },
         { question: "Você faz o download de arquivos desconhecidos?", fact: "baixa_arquivos_desconhecidos" },
+        { question: "Você utiliza biometria (digital/rosto) para desbloquear seus dispositivos?", fact: "usa_biometria" },
+        { question: "Você costuma compartilhar sua localização em tempo real em redes sociais?", fact: "compartilha_localizacao" },
+        { question: "Você possui dispositivos inteligentes (Lâmpadas, Câmeras Wi-Fi) em casa?", fact: "conecta_dispositivos_iot" },
+        { question: "Você utiliza um gerenciador de senhas para armazenar suas credenciais?", fact: "usa_gerenciador_senhas" },
+        { question: "Você costuma realizar compras em sites que nunca ouviu falar antes?", fact: "faz_compras_sites_suspeitos" },
+        { question: "Você sabe o que é Engenharia Social?", fact: "conhece_engenharia_social" },
     ];
 
     let riskScore = 0;
     let recommendations = [];
-
+22
     function addRisk(value, rec) {
         riskScore += value;
         if (!recommendations.includes(rec)) {
@@ -84,6 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (facts.ignora_alertas) addRisk(3, "🚨 Não ignore alertas de segurança do sistema ou navegador");
         if (facts.acessa_sites_inseguros) addRisk(2, "🌐 Evite acessar sites sem HTTPS ou suspeitos");
         if (facts.baixa_arquivos_desconhecidos) addRisk(3, "⬇️ Não baixe arquivos de fontes desconhecidas");
+        if (!facts.usa_biometria) addRisk(2, "📱 Use biometria ou PIN forte para proteger o acesso físico aos seus aparelhos");
+        if (facts.compartilha_localizacao) addRisk(2, "📍 Evite postar sua localização em tempo real para preservar sua segurança física e digital");
+        if (facts.conecta_dispositivos_iot) addRisk(2, "🏠 Dispositivos IoT podem ser portas de entrada; certifique-se de trocar as senhas padrão deles");
+        if (!facts.usa_gerenciador_senhas) addRisk(1, "🔑 Considere usar um gerenciador de senhas para evitar anotações inseguras");
+        if (facts.faz_compras_sites_suspeitos) addRisk(3, "🛒 Pesquise a reputação de lojas online antes de inserir dados de cartão de crédito");
+        if (!facts.conhece_engenharia_social) addRisk(2, "🧠 Estude sobre Engenharia Social: a maior parte dos ataques foca no erro humano, não no sistema");
 
     }
 
