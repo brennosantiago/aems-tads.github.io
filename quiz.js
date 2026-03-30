@@ -8,25 +8,24 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentStep = 0;
 
     let facts = {
-        conhece_phishing: false,
-        conhece_ransomware: false,
-        conhece_2fa: false,
-        usa_senha_forte: false,
-        sabe_identificar_email_falso: false,
-        clica_links_desconhecidos: false,
-        reutiliza_senha: false,
-        usa_wifi_publico: false,
-        atualiza_sistema: false,
-        usa_antivirus: false,
-        verifica_urls: false,
-        compartilha_dados: false,
-        faz_backup: false,
-        usa_2fa: false,
-        abre_anexos_desconhecidos: false,
-        confia_em_promocoes: false,
-        usa_senha_padrao: false,
-        ignora_alertas: false,
-        acessa_sites_inseguros: false,
+        conhece_phishingOK: false,
+        conhece_ransomwareOK: false,
+        conhece_2faOK: false,
+        usa_senha_forteOK: false,
+        sabe_identificar_email_falsoOK: false,
+        clica_links_desconhecidosOK: false,
+        reutiliza_senhaOK: false,
+        usa_wifi_publicoOK: false,
+        atualiza_sistemaOK: false,
+        usa_antivirusOK: false,
+        verifica_urlsOK: false,
+        compartilha_dadosOK: false,
+        faz_backupOK: false,
+        usa_2faOK: false,
+        abre_anexos_desconhecidosOK: false,
+        confia_em_promocoesOK: false,
+        ignora_alertasOK: false,
+        acessa_sites_insegurosOK: false,
         baixa_arquivos_desconhecidos: false
     };
 
@@ -40,7 +39,16 @@ document.addEventListener('DOMContentLoaded', function () {
         { question: "Você mantém seu sistema atualizado?", fact: "atualiza_sistema" },
         { question: "Você usa antivírus no seu dispositivo?", fact: "usa_antivirus" },
         { question: "Você faz backup dos seus dados regularmente?", fact: "faz_backup" },
-        { question: "Você usa senhas fortes diferentes para cada serviço?", fact: "usa_senha_forte" }
+        { question: "Você usa senhas fortes diferentes para cada serviço?", fact: "usa_senha_forte" },
+        { question: "Você sabe o que é ransomware?", fact: "conhece_ransomware" },
+        { question: "Você sabe para que serve Autenticação em Dois Fatores?", fact: "conhece_2fa" },
+        { question: "Você verifica o cadeado (HTTPS) antes de inserir dados em um site?", fact: "verifica_urls" },
+        { question: "Você compartilha informações pessoais em redes sociais?", fact: "compartilha_dados" },
+        { question: "Você abre anexos desconhecidos?", fact: "abre_anexos_desconhecidos" },
+        { question: "Você confia em todo tipo de promoção?", fact: "confia_em_promocoes" },
+        { question: "Você ignora alertas de segurança da sua conta?", fact: "ignora_alertas" },
+        { question: "Você acessa sites inseguros?", fact: "acessa_sites_inseguros" },
+        { question: "Você faz o download de arquivos desconhecidos?", fact: "baixa_arquivos_desconhecidos" },
     ];
 
     let riskScore = 0;
@@ -66,6 +74,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!facts.faz_backup) addRisk(2, "💾 Faça backups regulares dos seus dados");
         if (!facts.sabe_identificar_email_falso) addRisk(2, "📧 Aprenda a identificar e-mails fraudulentos");
         if (!facts.usa_senha_forte) addRisk(2, "🔐 Use senhas fortes e únicas para cada serviço");
+        if (!facts.conhece_ramsonware) addRisk(2, "⚠️ Você deveria conhecer o que é ransomware para evitar esse tipo de ataque");
+
+        if (!facts.conhece_2fa) addRisk(3, "🔐 Ative a autenticação em dois fatores (2FA) para aumentar sua segurança");
+        if (!facts.verifica_urls) addRisk(2, "🔍 Verifique as URLs antes de acessar sites para evitar golpes");
+        if (facts.compartilha_dados) addRisk(2, "📱 Evite compartilhar dados pessoais desnecessariamente");
+        if (facts.abre_anexos_desconhecidos) addRisk(3, "📎 Não abra anexos de remetentes desconhecidos");
+        if (facts.confia_em_promocoes) addRisk(2, "💸 Desconfie de promoções muito boas para serem verdade");
+        if (facts.ignora_alertas) addRisk(3, "🚨 Não ignore alertas de segurança do sistema ou navegador");
+        if (facts.acessa_sites_inseguros) addRisk(2, "🌐 Evite acessar sites sem HTTPS ou suspeitos");
+        if (facts.baixa_arquivos_desconhecidos) addRisk(3, "⬇️ Não baixe arquivos de fontes desconhecidas");
+
     }
 
     function getRiskLevel() {
